@@ -113,4 +113,4 @@ Done means evidence, not confidence:
 - Tests from step 7 passing in CI output
 - The contract (schema/types) committed next to the handler
 - Migration up **and** down executed successfully against realistic data
-- Security checklist items for input handling cleared (`../../references/security-checklist.md`)
+- Security checklist items for input handling cleared (`references/security-checklist.md`)
