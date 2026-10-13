@@ -9,8 +9,10 @@ Based on [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (
 ```
 ai-skills/
 ├── skills/        ← 26 SKILL.md workflows (the core; plain Markdown, portable)
+│   └── <skill>/references/  ← each skill carries its own copies of the checklists it links to
 ├── agents/        ← 4 reviewer personas (code-reviewer, test-engineer, security-auditor, web-performance-auditor)
-├── references/    ← shared checklists skills link to (definition-of-done, testing, security, a11y, perf, observability)
+├── references/    ← canonical source of the shared checklists (skills carry synced copies)
+├── scripts/       ← validate.sh (link + frontmatter + copy-sync checker)
 └── README.md      ← you are here
 ```
 
@@ -29,23 +31,23 @@ Start with **`skills/using-agent-skills/SKILL.md`** — it's the router that map
 
 ## Installation
 
-Skills are plain Markdown — "installing" means putting them where your agent discovers them.
+Skills are plain Markdown — "installing" means putting them where your agent discovers them. **Every skill folder is self-contained:** it carries its own `references/` copies, so you can copy any single skill folder anywhere and all its links resolve. No extra files needed.
 
 ### GitHub Copilot (CLI / IDE)
-- **Per-repo:** copy the skill folders you want into the repo's `.github/skills/` (and `references/` into `.github/references/` — skills link to `../../references/`).
-- **Personal (all repos):** copy or symlink into `~/.copilot/skills/`.
+- **Per-repo:** copy the skill folders you want into the repo's `.github/skills/`.
+- **Personal (all repos):** copy or symlink skill folders into `~/.copilot/skills/`.
 
 ### Claude Code
 - Copy skill folders into `~/.claude/skills/` (global) or `.claude/skills/` (per project).
-- Personas in `agents/` can be added as custom subagents.
+- Personas in `agents/` can be added as custom subagents (`~/.claude/agents/` or `.claude/agents/`).
 
 ### Cursor
-- Sync `skills/` into `.cursor/skills/` in your project; keep short policies in `.cursor/rules/*.mdc`.
+- Sync skill folders into `.cursor/skills/` in your project; keep short policies in `.cursor/rules/*.mdc`.
 
 ### Codex / Gemini CLI / others
 - Point the tool's skill-discovery at `skills/`, or paste a `SKILL.md` as instructions. Any agent that accepts instruction files can use these.
 
-> **Keep paths intact:** several skills reference `../../references/<checklist>.md`. If you copy an individual skill, also copy `references/` two levels up from the skill folder, or adjust the link.
+> **Editing the shared checklists:** the canonical copies live in the top-level `references/`. Skills carry synced duplicates in `skills/<skill>/references/`. After editing a canonical checklist, run `scripts/validate.sh --sync` to propagate it to every skill that carries a copy (plain `scripts/validate.sh` reports drift without changing files).
 
 ## Change sizing — when to apply the full process
 
