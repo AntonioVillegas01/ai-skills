@@ -70,4 +70,4 @@ When in doubt, the skill's own "When to Use" section decides. An agent that invo
 
 ## Attribution
 
-Upstream skills © Addy Osmani and contributors, MIT license (`LICENSE.agent-skills`). Local modifications and additions by the Progressive Leasing team.
+Upstream skills © Addy Osmani and contributors, MIT license (`LICENSE.agent-skills`).
